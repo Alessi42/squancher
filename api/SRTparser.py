@@ -1,5 +1,7 @@
 from collections import namedtuple
 from itertools import groupby
+from datetime import datetime
+
 #import pyodbc
 #cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER=localhost;DATABASE=wumbo;UID=root;PWD=b8c328c4f2')
 #db = cnxn.cursor()
@@ -11,8 +13,8 @@ cnx = mysql.connector.connect(user='root', password='b8c328c4f2',
                               database='wumbo')
 cur = cnx.cursor()
 # "chunk" our input file, delimited by blank lines
-filename=raw_input("enter S00E00:").upper()
-for i in range(1,11):
+#filename=raw_input("enter S00E00:").upper()
+for i in range(1,12):
 	filename = "S02E"+"{0:0=2d}".format(i)
 	with open(filename+".srt") as f:
 	    res = [list(g) for b,g in groupby(f, lambda x: bool(x.strip())) if b]
@@ -23,10 +25,11 @@ for i in range(1,11):
 		start_end = sub[1]
 		content = " ".join(sub[2::]).replace('"', '\'')
 	        #number, start_end,*content = sub # py3 syntax
-	        start, end = start_end.split(' --> ')
-	        subs.append('("%s","%s","%s","%s")'% (filename,start,end,content))
+	        start, end = map(lambda x: int(((datetime.strptime(x, '%H:%M:%S,%f') - datetime(1900, 1, 1)).total_seconds()*1000)), start_end.split(' --> '))
+                midpoint= int(500 * round(float((start+end)/2)/500)) # round to nearest 500ms
+	        subs.append('("%s","%s","%s","%s","%s")'% (filename,start,end,midpoint,content))
 	subs
-	query= 'INSERT INTO `data` (`episode`, `startTime`, `stopTime`, `text`) VALUES '+','.join(subs)+';'
+	query= 'INSERT INTO `data` (`episode`, `startTime`, `stopTime`,`midTime`,`text`) VALUES '+','.join(subs)+';'
 	cur.execute(query)
 	for response in cur:
 	    print(response)
