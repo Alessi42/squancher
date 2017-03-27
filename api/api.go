@@ -36,18 +36,18 @@ func main() {
 			subtitle  Subtitle
 			subtitles []Subtitle
 			score     int
+			q         string
 		)
-		q := c.Param("q") + "*"
+		q = c.Param("q") + "*"
 		if len(q) < 4 {
 			return
 		}
-		if len(q) > 64 {
-			q := q[:63] + "*"
-			_ = q
+		if len(q) > 48 {
+			q = q[:47] + "*"
 		}
 		s := c.Param("s") + "*"
 		// old SELECT episode, midTime, text FROM data WHERE (MATCH ( TEXT ) AGAINST (? IN BOOLEAN MODE)) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE))
-		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE)) ORDER BY relevance DESC LIMIT 64", q, q, s)
+		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE)) ORDER BY relevance DESC LIMIT 32", q, q, s)
 		if err != nil {
 			fmt.Print(err.Error())
 		}
@@ -69,18 +69,19 @@ func main() {
 			subtitle  Subtitle
 			subtitles []Subtitle
 			score     int
+			q         string
 		)
-		q := c.Param("q") + "*"
+		q = c.Param("q") + "*"
 		if len(q) < 4 {
 			return
 		}
-		if len(q) > 64 {
-			q := q[:63] + "*"
-			_ = q
+		if len(q) > 48 {
+			q = q[:47] + "*"
 		}
+		fmt.Print("length of query: ", len(q))
 		// SELECT `episode` ,  `startTime`, `stopTime` ,  `text` , MATCH (TEXT) AGAINST (? IN NATURAL LANGUAGEMODE) AS relevance FROM data ORDER BY relevance DESC LIMIT 64
 		//sorting by relevance is *okay* it yields slower load times though ~8-16ms compared to ~2-4ms without and also returns many non relevant results and is only limited to the 64 limit it will return all subtitles.
-		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) ORDER BY relevance DESC LIMIT 64", q, q)
+		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) ORDER BY relevance DESC LIMIT 32", q, q)
 		if err != nil {
 			fmt.Print(err.Error())
 		}
