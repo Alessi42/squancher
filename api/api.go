@@ -31,46 +31,67 @@ func main() {
 	router := gin.Default()
 
 	// GET a subtitle search
-	router.GET("/search", func(c *gin.Context) { // search/search?q=search%20quer&s=S01E01
+	router.GET("/api/search/:q/:s", func(c *gin.Context) { // search/search/search%20quer/S01E01 better for nginx caching
 		var (
 			subtitle  Subtitle
 			subtitles []Subtitle
+			score     int
 		)
-		q := c.Query("q") + "*"
+		q := c.Param("q") + "*"
 		if len(q) < 4 {
 			return
 		}
-		s := c.Query("s") + "*"
-		if len(s) != 1 {
-			fmt.Print("the season has been set")
-			rows, err := db.Query("SELECT episode, midTime, text FROM data WHERE (MATCH ( TEXT ) AGAINST (? IN BOOLEAN MODE)) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE))", q, s)
-			if err != nil {
-				fmt.Print(err.Error())
-			}
-			for rows.Next() {
-				err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text)
-				subtitles = append(subtitles, subtitle)
-				if err != nil {
-					fmt.Print(err.Error())
-				}
-			}
-			defer rows.Close()
-		} else {
-			// SELECT `episode` ,  `startTime`, `stopTime` ,  `text` , MATCH (TEXT) AGAINST (? IN NATURAL LANGUAGEMODE) AS relevance FROM data ORDER BY relevance DESC LIMIT 64
-			//sorting by relevance is *okay* it yields slower load times though ~8-16ms compared to ~2-4ms without and also returns many non relevant results and is only limited to the 64 limit it will return all subtitles.
-			rows, err := db.Query("SELECT episode, midTime, text FROM data WHERE (MATCH ( TEXT ) AGAINST (? IN BOOLEAN MODE))", q)
-			if err != nil {
-				fmt.Print(err.Error())
-			}
-			for rows.Next() {
-				err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text)
-				subtitles = append(subtitles, subtitle)
-				if err != nil {
-					fmt.Print(err.Error())
-				}
-			}
-			defer rows.Close()
+		if len(q) > 64 {
+			q := q[:63] + "*"
+			_ = q
 		}
+		s := c.Param("s") + "*"
+		// old SELECT episode, midTime, text FROM data WHERE (MATCH ( TEXT ) AGAINST (? IN BOOLEAN MODE)) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE))
+		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) AND (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE)) ORDER BY relevance DESC LIMIT 64", q, q, s)
+		if err != nil {
+			fmt.Print(err.Error())
+		}
+		for rows.Next() {
+			err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text, &score)
+			subtitles = append(subtitles, subtitle)
+			if err != nil {
+				fmt.Print(err.Error())
+			}
+		}
+		defer rows.Close()
+		c.JSON(http.StatusOK, gin.H{
+			"subtitles": subtitles,
+			"count":     len(subtitles),
+		})
+	})
+	router.GET("/api/search/:q", func(c *gin.Context) { // search/search/search%20quer/S01E01 better for nginx caching
+		var (
+			subtitle  Subtitle
+			subtitles []Subtitle
+			score     int
+		)
+		q := c.Param("q") + "*"
+		if len(q) < 4 {
+			return
+		}
+		if len(q) > 64 {
+			q := q[:63] + "*"
+			_ = q
+		}
+		// SELECT `episode` ,  `startTime`, `stopTime` ,  `text` , MATCH (TEXT) AGAINST (? IN NATURAL LANGUAGEMODE) AS relevance FROM data ORDER BY relevance DESC LIMIT 64
+		//sorting by relevance is *okay* it yields slower load times though ~8-16ms compared to ~2-4ms without and also returns many non relevant results and is only limited to the 64 limit it will return all subtitles.
+		rows, err := db.Query("SELECT episode, midTime, text, MATCH(text) AGAINST (? IN BOOLEAN MODE) AS relevance FROM data WHERE MATCH(text) AGAINST (? IN BOOLEAN MODE) ORDER BY relevance DESC LIMIT 64", q, q)
+		if err != nil {
+			fmt.Print(err.Error())
+		}
+		for rows.Next() {
+			err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text, &score)
+			subtitles = append(subtitles, subtitle)
+			if err != nil {
+				fmt.Print(err.Error())
+			}
+		}
+		defer rows.Close()
 		c.JSON(http.StatusOK, gin.H{
 			"subtitles": subtitles,
 			"count":     len(subtitles),

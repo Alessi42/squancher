@@ -1,165 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="css/materialize.min.css" media="screen,projection" title="style (screen)" />
-  <!-- CSS  -->
-  <style>/* fallback */
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
-}
 
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-    }</style>
-  <style>/* Custom Stylesheet */
-/**
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Starter Template - Materialize</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/materialize.css" media="screen,projection" title="style (screen)" />
+    <!-- CSS  -->
+    <style>
+        /* fallback */
+        
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+        }
+        
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+        }
+
+    </style>
+    <style>
+        /* Custom Stylesheet */
+        /**
  * Use this file to override Materialize files so you can update
  * the core Materialize files in the future
  *
  * Made By MaterializeCSS.com
  */
+        
+        .icon-block {
+            padding: 0 15px;
+        }
+        
+        .icon-block .material-icons {
+            font-size: inherit;
+        }
 
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-	font-size: inherit;
-}
     </style>
 </head>
+
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Starter Template</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
-      </div>
-      <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
-      </div>
-      <br><br>
-
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div class="section">
-
-      <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
-
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-          </div>
+    <main>
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <h1 class="header center">Squancher</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">Search all episodes of Rick and Morty!</h5>
+                </div>
+                <div class="input-field">
+                    <input class="black-text" placeholder="Search by phrase (Wubba lubba dub dub!)" id="search" type="search">
+                    <label class="label-icon active" for="search"><i class="material-icons">search</i></label>
+                </div>
+            </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
+        <div id="information" class="">
+            <div class="container">
+                stuff goes here give me credit only 25 schmeckles etc
+            </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
-
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-          </div>
+        <div id="noResults" class="hide">
+            <div class="container valign center">
+                no results found :(
+                <br>
+                <img class="noResult" alt="mmm squishy"/>
+            </div>
         </div>
-      </div>
-
-    </div>
-    <br><br>
-
-    <div class="section">
-
-    </div>
-  </div>
-
-  <footer class="page-footer orange">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+        <div id="subtitles" class="hide">
+            <div id="content" class="content">
+            </div>
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
+    </main>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <h5 class="white-text">Wooh im me</h5>
+                <p class="grey-text text-lighten-4">Lorum ipsum and stuff yeah!</p>
+            </div>
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
     </footer>
     <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.min.js"></script>
+-->
     <script>
-      (function($){
-          $(function(){
-              $('.button-collapse').sideNav();
-          }); // end of document ready
-      })(jQuery); // end of jQuery name space
+        var search = document.getElementById("search"),
+            information = document.getElementById("information"),
+            noResults = document.getElementById("noResults"),
+            subtitles = document.getElementById("subtitles"),
+            content = document.getElementById("content");
+        onload = function() {
+            var e = document.getElementById('search');
+            e.oninput = searchFunction;
+            e.onpropertychange = e.oninput;
+            loadFromURL();
+        };
+        var searchFunction = function(e) {
+            var elem = (typeof this.selectedIndex == "undefined" ? window.event.srcElement : this);
+            var query = elem.value; //|| elem.options[elem.selectedIndex].value;
+            var qlen = query.length;
+            if (qlen === 0) {
+                information.classList.remove('hide');
+                noResults.classList.add('hide');
+                subtitles.classList.add('hide');
+            } else if (qlen < 3) {
+                information.classList.add('hide');
+                noResults.classList.remove('hide');
+                subtitles.classList.add('hide');
+            } else {
+                doSearch(query);
+                information.classList.add('hide');
+                noResults.classList.add('hide');
+                subtitles.classList.remove('hide');
+            }
+        };
+
+        function doSearch(q) {
+            AJAX('//wumbo.uk.to/api/search/' + q.toLowerCase(), function(data) {
+                if (data.count === 0) {
+                    content.innerHTML = "";
+                    noResults.classList.remove('hide');
+                } else {
+                    alarm.setup();
+                    var content_fragment = document.createDocumentFragment();
+                    noResults.classList.add('hide');
+                    for (var i = 0, len = data.subtitles.length; i < len; i++) {
+                        var subtitle = document.createElement('div');
+                        var subtitle_image = document.createElement('div');
+                        var img = document.createElement('img');
+                        var subtitle_text = document.createElement('div');
+                        subtitle.className += "card";
+                        subtitle_image.className += "card-image";
+                        subtitle_text.className += "card-content";
+                        img.src = "../images/" + data.subtitles[i].Episode + "/" + data.subtitles[i].Episode + "-" + pad(~~(data.subtitles[i].TimeStamp / 1000), 3) + ".jpg";
+                        subtitle_text.innerHTML = data.subtitles[i].Text;
+                        subtitle_image.appendChild(img);
+                        subtitle.appendChild(subtitle_image);
+                        subtitle.appendChild(subtitle_text);
+                        content_fragment.appendChild(subtitle);
+                    }
+                    content.innerHTML = "";
+                    content.appendChild(content_fragment);
+                }
+            });
+        }
+
+        function AJAX(path, callback) {
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        var data = JSON.parse(httpRequest.responseText);
+                        if (callback) callback(data);
+                    }
+                }
+            };
+            httpRequest.open('GET', path);
+            httpRequest.send();
+        }
+        window.onpopstate = function(event) {
+            loadFromURL();
+        };
+        loadFromURL = function() {
+            var q = findGetParameter("q")
+            if (q !== null && q.length>3) {
+                doSearch(q);
+                information.classList.add('hide');
+                noResults.classList.add('hide');
+                subtitles.classList.remove('hide');
+                search.value = q;
+            }
+        }
+
+        function findGetParameter(parameterName) {
+            var result = null,
+                tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function(item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+        // to be removed when I redo the images
+        function pad(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+
+        var alarm = {
+            remind: function() {
+                history.pushState(null, null, "?q=" + search.value);
+                this.timeoutID = undefined;
+            },
+
+            setup: function() {
+                if (typeof this.timeoutID === 'number') {
+                    this.cancel();
+                }
+
+                this.timeoutID = window.setTimeout(function(msg) {
+                    this.remind(msg);
+                }.bind(this), 1500);
+            },
+            cancel: function() {
+                window.clearTimeout(this.timeoutID);
+                this.timeoutID = undefined;
+            }
+        };
+        window.onclick = function() {
+            alarm.setup();
+        };
+
     </script>
-  </body>
+</body>
+
 </html>
