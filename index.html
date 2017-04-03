@@ -5,20 +5,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
     <title>Squancher!</title>
-    <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="css/materialize.css" media="screen,projection" title="style (screen)" />
+    <meta name="theme-color" content="#1c1f33">
+    <meta property="og:title" content="Squancher">
+    <meta property="og:site_name" content="Squancher">
+    <meta property="og:url" content="https://squancher.uk.to/">
+    <meta property="og:description" content="Search through thousands of Rick and Morty quotes by subtitles!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://squancher.uk.to/og_image.jpg">
+    <meta name="description" content="Search through thousands of Rick and Morty quotes by subtitles">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alessi42">
+    <link rel="shortcut icon" type="image/png" href="../favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/materialize.min.css" media="screen,projection" title="style (screen)" />
     <!-- CSS  -->
     <style>
-        /* fallback */
-
+        /* async */
+        
         @font-face {
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
             src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
         }
-
-        .material-icons {
+        
+        - .material-icons {
             font-family: 'Material Icons';
             font-weight: normal;
             font-style: normal;
@@ -34,50 +44,59 @@
         }
 
     </style>
-    <style>
-        /* Custom Stylesheet */
-        /**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
-
-        .icon-block {
-            padding: 0 15px;
-        }
-
-        .icon-block .material-icons {
-            font-size: inherit;
-        }
-
-    </style>
 </head>
-
 <body>
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96650294-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
     <main>
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
-                <h1 class="header center">Squancher</h1>
-                <div class="row center">
-                    <h5 class="header col s12 light">Search all episodes of Rick and Morty!</h5>
-                </div>
-                <div class="input-field">
-                    <input class="black-text" placeholder="Search by phrase (Wubba lubba dub dubs!)" id="search" type="search" maxlength="48">
-                    <label class="label-icon active" for="search"><i class="material-icons">search</i></label>
+                <img src="../banner.jpg" class="logo center" alt="Squancher" />
+                <div class="input-field row">
+                    <input class="search" placeholder="Search by phrase (Wubba lubba dub dubs!)" id="search" type="search" maxlength="48">
+                    <a onClick="random()" class="random waves-light btn">Random</a>
+                    <label class="label-icon active" for="search"><i class="material-icons"></i></label>
                 </div>
             </div>
         </div>
-        <div id="information" class="">
-            <div class="container">
-                stuff goes here give me credit only 25 schmeckles etc
+        <div class="container" id="season-select">
+            <p>
+                <input onClick="searchFunction()" type="checkbox" id="S03" />
+                <label for="S03">Season 3 Only</label>
+            </p>
+            <!--
+               yeah umm I'll figure this out later
+                               <p>
+                                   <input checked="checked" type="checkbox" id="S02" />
+                                   <label for="S02">Season 2</label>
+                               </p>
+                               <p>
+                                   <input checked="checked" type="checkbox" id="S03" />
+                                   <label for="S03">Season 3</label>
+                               </p>
+               -->
+        </div>
+        <div id="information" class="container white-text">
+            <div class="center">
+                <h5>Search all episodes of Rick and Morty at the <i>low low</i> price of only 25 Shmeckles!</h5>
+                <br><br>
+                <h6>*Subject to availability; may cause unwanted side effects such as feelings of self loathing, heartburn &amp; wasted time.<br>Enjoy!</h6>
             </div>
         </div>
         <div id="noResults" class="hide">
             <div class="container valign center">
                 no results found :(
                 <br>
-                <img class="noResult" alt="mmm squishy"/>
+                <img src="../images/S01E01/S01E01-327.jpg"class="noResult" alt="mmm squishy" />
             </div>
         </div>
         <div id="subtitles" class="hide">
@@ -85,24 +104,23 @@
             </div>
         </div>
     </main>
-
     <footer class="page-footer">
         <div class="container">
-            <div class="row">
-                <h5 class="white-text">Wooh im me</h5>
-                <p class="grey-text text-lighten-4">Lorum ipsum and stuff yeah!</p>
+            <div class="row center white-text">
+                Much love and appreciation to the people that made
+                <a href="https://frinkiac.com/"><img style="height: 0.8em;" src="https://frinkiac.com/img/logo.svg" alt="Frinkiac"></a> who I basically stole the idea from ❤
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Made by <a class="text-lighten-3" href="http://materializecss.com">Materialize</a>
+                Made by <a class="blue-text" href="http://reddit.com/u/Alessi42">/u/Alessi42</a>.
             </div>
         </div>
     </footer>
     <!--  Scripts-->
     <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/materialize.min.js"></script>
--->
+         <script src="js/materialize.min.js"></script>
+         -->
     <script>
         var search = document.getElementById("search"),
             information = document.getElementById("information"),
@@ -115,15 +133,15 @@
             e.onpropertychange = e.oninput;
             loadFromURL();
         };
-        var searchFunction = function(e) {
-            var elem = (typeof this.selectedIndex == "undefined" ? window.event.srcElement : this);
-            var query = elem.value; //|| elem.options[elem.selectedIndex].value;
+        var searchFunction = function() {
+            //var elem = (typeof this.selectedIndex == "undefined" ? window.event.srcElement : this);
+            var query = search.value; //|| elem.options[elem.selectedIndex].value;
             var qlen = query.length;
             if (qlen === 0) {
                 information.classList.remove('hide');
                 noResults.classList.add('hide');
                 subtitles.classList.add('hide');
-            } else if (qlen < 3) {
+            } else if (qlen < 2) {
                 information.classList.add('hide');
                 noResults.classList.remove('hide');
                 subtitles.classList.add('hide');
@@ -136,33 +154,63 @@
         };
 
         function doSearch(q) {
-            AJAX('//wumbo.uk.to/api/search/' + q.toLowerCase(), function(data) {
-                if (data.count === 0) {
-                    content.innerHTML = "";
-                    noResults.classList.remove('hide');
-                } else {
-                    alarm.setup();
-                    var content_fragment = document.createDocumentFragment();
-                    noResults.classList.add('hide');
-                    for (var i = 0, len = data.subtitles.length; i < len; i++) {
-                        var subtitle = document.createElement('div');
-                        var subtitle_image = document.createElement('div');
-                        var img = document.createElement('img');
-                        var subtitle_text = document.createElement('div');
-                        subtitle.className += "card";
-                        subtitle_image.className += "card-image";
-                        subtitle_text.className += "card-content";
-                        img.src = "../images/" + data.subtitles[i].Episode + "/" + data.subtitles[i].Episode + "-" + pad(~~(data.subtitles[i].TimeStamp / 1000), 3) + ".jpg";
-                        subtitle_text.innerHTML = data.subtitles[i].Text;
-                        subtitle_image.appendChild(img);
-                        subtitle.appendChild(subtitle_image);
-                        subtitle.appendChild(subtitle_text);
-                        content_fragment.appendChild(subtitle);
-                    }
-                    content.innerHTML = "";
-                    content.appendChild(content_fragment);
+            delay.setup(q);
+            if (document.getElementById("S03").checked) {
+                AJAX('//squancher.uk.to/api/search/' + q.toLowerCase() + "/S03", function(data) {
+                    addData(data)
+                });
+            } else {
+                AJAX('//squancher.uk.to/api/search/' + q.toLowerCase(), function(data) {
+                    addData(data)
+                });
+            }
+        }
+
+        function random() {
+            delay.setup("random");
+            information.classList.add('hide');
+            noResults.classList.add('hide');
+            subtitles.classList.remove('hide');
+            //search.value = q;
+            // holy fuck how am I going to handle back events or sharing on a random fucking query?
+            if (document.getElementById("S03").checked) {
+                AJAX('//squancher.uk.to/api/random/S03/', function(data) {
+                    addData(data)
+                });
+            } else {
+                AJAX('//squancher.uk.to/api/random/', function(data) {
+                    addData(data)
+                });
+            }
+        }
+
+        function addData(data) {
+            if (data.count === 0) {
+                content.innerHTML = "";
+                noResults.classList.remove('hide');
+            } else {
+                console.log(data);
+                var content_fragment = document.createDocumentFragment();
+                noResults.classList.add('hide');
+                for (var i = 0, len = data.subtitles.length; i < len; i++) {
+                    var subtitle = document.createElement('div');
+                    var subtitle_image = document.createElement('a');
+                    var img = document.createElement('img');
+                    var subtitle_text = document.createElement('div');
+                    subtitle.className += "card";
+                    subtitle_image.className += "card-image";
+                    subtitle_image.href = "../images/" + data.subtitles[i].Episode + "/" + data.subtitles[i].Episode + "-" + pad(~~(data.subtitles[i].TimeStamp / 1000), 3) + ".jpg";
+                    subtitle_text.className += "card-content";
+                    img.src = "../images/" + data.subtitles[i].Episode + "/" + data.subtitles[i].Episode + "-" + pad(~~(data.subtitles[i].TimeStamp / 1000), 3) + ".jpg";
+                    subtitle_text.innerHTML = data.subtitles[i].Text;
+                    subtitle_image.appendChild(img);
+                    subtitle.appendChild(subtitle_image);
+                    subtitle.appendChild(subtitle_text);
+                    content_fragment.appendChild(subtitle);
                 }
-            });
+                content.innerHTML = "";
+                content.appendChild(content_fragment);
+            }
         }
 
         function AJAX(path, callback) {
@@ -183,7 +231,7 @@
         };
         loadFromURL = function() {
             var q = findGetParameter("q")
-            if (q !== null && q.length>3) {
+            if (q !== null && q.length > 2) {
                 doSearch(q);
                 information.classList.add('hide');
                 noResults.classList.add('hide');
@@ -211,28 +259,27 @@
             return s;
         }
 
-        var alarm = {
+        var delay = {
             remind: function() {
+                //processQuery(this.q);
                 history.pushState(null, null, "?q=" + search.value);
                 this.timeoutID = undefined;
             },
 
-            setup: function() {
+            setup: function(q) {
+                //this.q = q;
                 if (typeof this.timeoutID === 'number') {
                     this.cancel();
                 }
 
                 this.timeoutID = window.setTimeout(function(msg) {
                     this.remind(msg);
-                }.bind(this), 1500);
+                }.bind(this), 200);
             },
             cancel: function() {
                 window.clearTimeout(this.timeoutID);
                 this.timeoutID = undefined;
             }
-        };
-        window.onclick = function() {
-            alarm.setup();
         };
 
     </script>

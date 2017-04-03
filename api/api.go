@@ -87,7 +87,65 @@ func main() {
 		}
 		for rows.Next() {
 			err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text, &score)
-			subtitles = append(subtitles, subtitle)
+			if len(subtitles) < 32 {
+				subtitles = append(subtitles, subtitle)
+			}
+			if err != nil {
+				fmt.Print(err.Error())
+			}
+		}
+		defer rows.Close()
+		c.JSON(http.StatusOK, gin.H{
+			"subtitles": subtitles,
+			"count":     len(subtitles),
+		})
+	})
+	router.GET("/api/random/", func(c *gin.Context) { // search/search/search%20quer/S01E01 better for nginx caching
+		var (
+			subtitle  Subtitle
+			subtitles []Subtitle
+			stop      int
+			start     int
+			mid       int
+		)
+		// SELECT `episode`, `midTime`, `text` FROM `data` WHERE 1 ORDER BY RAND() LIMIT 0, 32
+		// SELECT * FROM data AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(midTime) FROM data)) AS midTime) AS r2 WHERE r1.midTime >= r2.midTime ORDER BY r1.midTime ASC LIMIT 32
+		rows, err := db.Query("SELECT * FROM data AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(midTime) FROM data)) AS midTime) AS r2 WHERE r1.midTime >= r2.midTime ORDER BY r1.midTime ASC LIMIT 16")
+		if err != nil {
+			fmt.Print(err.Error())
+		}
+		for rows.Next() {
+			err = rows.Scan(&subtitle.Episode, &stop, &start, &subtitle.TimeStamp, &subtitle.Text, &mid)
+			if len(subtitles) < 32 {
+				subtitles = append(subtitles, subtitle)
+			}
+			if err != nil {
+				fmt.Print(err.Error())
+			}
+		}
+		defer rows.Close()
+		c.JSON(http.StatusOK, gin.H{
+			"subtitles": subtitles,
+			"count":     len(subtitles),
+		})
+	})
+	router.GET("/api/random/:s", func(c *gin.Context) { // search/search/search%20quer/S01E01 better for nginx caching
+		var (
+			subtitle  Subtitle
+			subtitles []Subtitle
+		)
+		s := c.Param("s") + "*"
+		// SELECT `episode`, `midTime`, `text` FROM `data` WHERE 1 ORDER BY RAND() LIMIT 0, 32
+		// SELECT * FROM data AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(midTime) FROM data)) AS midTime) AS r2 WHERE r1.midTime >= r2.midTime ORDER BY r1.midTime ASC LIMIT 32
+		rows, err := db.Query("SELECT episode, midTime, text FROM data WHERE (MATCH ( episode ) AGAINST (? IN BOOLEAN MODE)) ORDER BY RAND() LIMIT 16", s)
+		if err != nil {
+			fmt.Print(err.Error())
+		}
+		for rows.Next() {
+			err = rows.Scan(&subtitle.Episode, &subtitle.TimeStamp, &subtitle.Text)
+			if len(subtitles) < 32 {
+				subtitles = append(subtitles, subtitle)
+			}
 			if err != nil {
 				fmt.Print(err.Error())
 			}

@@ -32,7 +32,7 @@
     }
     @media #{$extra-large-and-up} {
         // styles for extra large screens and up
-        width: ((100% - $card-padding-side*9)/ 4);
+        width: ((100% - $card-padding-side*11)/ 5);
     }
     .card-title {
         font-size: 24px;
@@ -49,6 +49,11 @@
         .card-image {
             max-height: 60%;
             overflow: hidden;
+            
+            &:hover {
+                border-color: #9bf1ff;
+                box-shadow: 0 0 0 2px #9bf1ff;
+            }
         }
         .card-image+.card-content {
             max-height: 40%;
@@ -59,6 +64,10 @@
         }
         .card-image {
             width: 100%;
+            &:hover {
+                border-color: #9bf1ff;
+                box-shadow: 0 0 0 2px #9bf1ff;
+            }
         }
         .card-action {
             position: absolute;
@@ -98,6 +107,10 @@
                 max-width: 100%;
                 width: auto;
             }
+            &:hover {
+                border-color: #9bf1ff;
+                box-shadow: 0 0 0 2px #9bf1ff;
+            }
         }
         .card-stacked {
             display: flex;
@@ -131,6 +144,10 @@
             top: 0;
             bottom: 0;
             width: 100%;
+            &:hover {
+                border-color: #9bf1ff;
+                box-shadow: 0 0 0 2px #9bf1ff;
+            }
         }
         .card-title {
             color: $card-bg-color;
@@ -142,7 +159,7 @@
         }
     }
     .card-content {
-        padding: $card-padding;
+        padding: $card-padding/2;
         border-radius: 0 0 2px 2px;
         p {
             margin: 0;

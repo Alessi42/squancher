@@ -8,14 +8,14 @@ from datetime import datetime
 """This pure Python MySQL client provides a DB-API to a MySQL database by talking directly to the server via the binary client/server protocol."""
 import mysql.connector
 
-cnx = mysql.connector.connect(user='root', password='b8c328c4f2',
+cnx = mysql.connector.connect(user='root', password='',
                               host='127.0.0.1',
                               database='wumbo')
 cur = cnx.cursor()
 # "chunk" our input file, delimited by blank lines
 #filename=raw_input("enter S00E00:").upper()
-for i in range(1,12):
-	filename = "S02E"+"{0:0=2d}".format(i)
+for i in range(1,2):
+	filename = "S03E"+"{0:0=2d}".format(i)
 	with open(filename+".srt") as f:
 	    res = [list(g) for b,g in groupby(f, lambda x: bool(x.strip())) if b]
 	subs = []
